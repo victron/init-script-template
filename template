@@ -9,11 +9,19 @@
 # Description:       Enable service provided by daemon.
 ### END INIT INFO
 
-dir=""
-cmd=""
-user=""
-
 name=`basename $0`
+
+dir=`pwd`
+user=`whoami`
+config_file="/etc/$name/$name.conf"
+cmd="echo test_print"
+
+# overide environment from config file
+if [ -f $config_file ]; then
+    . $config_file
+fi
+
+
 pid_file="/var/run/$name.pid"
 stdout_log="/var/log/$name.log"
 stderr_log="/var/log/$name.err"
@@ -39,6 +47,7 @@ case "$1" in
             sudo -u "$user" $cmd >> "$stdout_log" 2>> "$stderr_log" &
         fi
         echo $! > "$pid_file"
+        
         if ! is_running; then
             echo "Unable to start, see $stdout_log and $stderr_log"
             exit 1

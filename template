@@ -17,18 +17,18 @@
 # Author: Viktor Tsymbalyuk
 # fork from https://github.com/fhd/init-script-template
 
-name=`basename $0`
-
-dir=`pwd`
-user=`whoami`
-config_file="/etc/$name/$name.conf"
-sig=""
-cmd="echo test_print"
-
-# overide environment from config file
+# environment from config file
+config_file="{{ conf_dir }}/curs.conf"
 if [ -f "$config_file" ]; then
     . "$config_file"
 fi
+
+# override configs in script (not recommended)
+name=`basename $0`
+# dir=`pwd`
+# user=`whoami`
+sig=""
+cmd="{{ cmd }}"
 
 
 pid_file="/var/run/$name.pid"

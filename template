@@ -1,13 +1,21 @@
 #!/usr/bin/env sh
+# https://github.com/victron/init-script-template/blob/master/template
+
+# help on LSB script comment
+# https://en.opensuse.org/openSUSE:Packaging_init_scripts
+
 ### BEGIN INIT INFO
-# Provides:
-# Required-Start:    $remote_fs $syslog
-# Required-Stop:     $remote_fs $syslog
+# Provides:             curs
+# Required-Start:       nginx mongodb $network $syslog
+# Required-Stop:        mongodb curs_auto $local_fs  $syslog
 # Default-Start:     2 3 4 5
 # Default-Stop:      0 1 6
 # Short-Description: Start daemon at boot time
 # Description:       Enable service provided by daemon.
 ### END INIT INFO
+
+# Author: Viktor Tsymbalyuk
+# fork from https://github.com/fhd/init-script-template
 
 name=`basename $0`
 
